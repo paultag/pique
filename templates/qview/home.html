@@ -1,4 +1,20 @@
 {% extends "qview/base.html" %}
 
+{% block style %}
+.queue {
+    background-image:    url({{ STATIC_URL }}debian-python.png);
+    background-repeat:   no-repeat;
+}
+{% endblock %}
+
 {% block content %}
+<div class="hero-unit" >
+    <h1>Sponsorship Queue</h1>
+    <br />
+    <p>
+        This is "the queue" - a list of pending bugs filed in the BTS that are
+        requesting sponsorship from the debian-python team. This includes the
+        DPMT and the DPAT.
+    </p>
+</div>
 {% endblock %}
