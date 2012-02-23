@@ -1,7 +1,7 @@
 {% extends "qview/base.html" %}
 
 {% block style %}
-.queue {
+.hero-unit {
     background-image:    url({{ STATIC_URL }}debian-python.png);
     background-repeat:   no-repeat;
 }
@@ -14,7 +14,26 @@
     <p>
         This is "the queue" - a list of pending bugs filed in the BTS that are
         requesting sponsorship from the debian-python team. This includes the
-        DPMT and the DPAT.
+        DPMT and the DPAT. The queue is read-only, please use this with the
+        BTS for the review process.
     </p>
 </div>
+<table>
+    <thead>
+        <tr>
+            <th>Request Subject</th>
+            <th>Requestor</th>
+            <th>Owner (reviewer)</th>
+            <th>Tags</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>RFS: python-gnatpython [fifth try]</td>
+            <td>Xavier Grave &lt;xavier.grave@ipno.in2p3.fr&gt;</td>
+            <td></td>
+            <td>RFS</td>
+        </tr>
+    </tbody>
+</table>
 {% endblock %}
