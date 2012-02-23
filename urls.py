@@ -4,10 +4,10 @@ from django.conf.urls.defaults import patterns, include, url
 # from django.contrib import admin
 # admin.autodiscover()
 
-urlpatterns = patterns('',
+urlpatterns = patterns('pyqie.views',
     # Examples:
     # url(r'^$', 'pyqie.views.home', name='home'),
-    # url(r'^pyqie/', include('pyqie.foo.urls')),
+    url(r'^pyqie/', include('pyqie.qview.urls')),
 
     # Uncomment the admin/doc line below to enable admin documentation:
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
