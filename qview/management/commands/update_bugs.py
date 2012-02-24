@@ -10,7 +10,9 @@ server = SOAPpy.SOAPProxy(url, namespace)
 package_name = "sponsorship-requests"
 
 def get_all_bugs():
-    return server.get_bugs("package", package_name)
+    return server.get_status(
+        server.get_bugs("package", package_name)
+    )
 
 class Command(BaseCommand):
     args = ''
