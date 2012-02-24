@@ -6,6 +6,9 @@
     background-repeat:    no-repeat;
     background-position:  top right;
 }
+footer {
+    margin-bottom:        20px;
+}
 {% endblock %}
 
 {% block content %}
@@ -19,23 +22,28 @@
         BTS for the review process.
     </p>
 </div>
-<table class="zebra-striped">
-    <thead>
-        <tr>
-            <th>Request Subject</th>
-            <th>Requestor</th>
-            <th>Owner (reviewer)</th>
-        </tr>
-    </thead>
-    <tbody>
-{% for ticket in tickets %}
-        <tr>
-            <td><a href = 'http://bugs.debian.org/{{ ticket.bugno }}'
-                    >{{ ticket.subject }}</a></td>
-            <td>{{ ticket.reporter }}</td>
-            <td>{{ ticket.owner }}</td>
-        </tr>
-    </tbody>
-{% endfor %}
-</table>
+<div class = 'content-fluid' >
+    <table class="zebra-striped">
+        <thead>
+            <tr>
+                <th>Request Subject</th>
+                <th>Requestor</th>
+                <th>Owner (reviewer)</th>
+            </tr>
+        </thead>
+        <tbody>
+    {% for ticket in tickets %}
+            <tr>
+                <td><a href = 'http://bugs.debian.org/{{ ticket.bugno }}'
+                        >{{ ticket.subject }}</a></td>
+                <td>{{ ticket.reporter }}</td>
+                <td>{{ ticket.owner }}</td>
+            </tr>
+        </tbody>
+    {% endfor %}
+    </table>
+    <footer>
+        Maintained by Paul Tagliamonte &lt;paultag@ubuntu.com&gt;
+    </footer>
+</div>
 {% endblock %}
