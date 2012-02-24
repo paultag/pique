@@ -14,11 +14,30 @@ def get_all_bugs():
         server.get_bugs("package", package_name)
     )
 
+def clean_email(email):
+    try:
+        idex1 = email.index("<")
+        idex2 = email.index(">")
+        return email[idex1+1:idex2].strip()
+    except ValueError:
+        return email
+
 class Command(BaseCommand):
     args = ''
     help = 'Import all the bugs'
 
     def handle(self, *args, **options):
-        bugs = get_all_bugs()
+        bugs = get_all_bugs()[0]
         for bug in bugs:
-            self.stdout.write(str(bug) + "\n")
+            metainf = bug['value']
+            try:
+                bug = QueueItem.objects.get(bugno=metainf['id'])
+            except QueueItem.DoesNotExist:
+                bug = QueueItem(
+                    bugno=metainf['id']
+                )
+            bug.active   = (metainf['fixed'] != '')
+            bug.reporter =  clean_email(metainf['originator'])
+            bug.owner    =  clean_email(metainf['owner'])
+            bug.subject  =  metainf['subject']
+            bug.save()
