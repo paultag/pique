@@ -30,13 +30,15 @@ class Command(BaseCommand):
         bugs = get_all_bugs()[0]
         for bug in bugs:
             metainf = bug['value']
+            print metainf
+
             try:
                 bug = QueueItem.objects.get(bugno=metainf['id'])
             except QueueItem.DoesNotExist:
                 bug = QueueItem(
                     bugno=metainf['id']
                 )
-            bug.active   = (metainf['fixed'] != '')
+            bug.active   = (metainf['done'] == '')
             bug.reporter =  clean_email(metainf['originator'])
             bug.owner    =  clean_email(metainf['owner'])
             bug.subject  =  metainf['subject']
