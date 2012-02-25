@@ -27,6 +27,7 @@ footer {
         <thead>
             <tr>
                 <th>Request Subject</th>
+                <th>Severity</th>
                 <th>Requestor</th>
                 <th>Owner (reviewer)</th>
             </tr>
@@ -36,6 +37,7 @@ footer {
             <tr>
                 <td><a href = 'http://bugs.debian.org/{{ ticket.bugno }}'
                         >{{ ticket.subject }}</a></td>
+                <td>{{ ticket.severity }}</td>
                 <td>{{ ticket.reporter }}</td>
                 <td>{{ ticket.owner }}</td>
             </tr>
