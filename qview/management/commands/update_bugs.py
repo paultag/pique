@@ -35,13 +35,12 @@ def get_or_create_row( bugno ):
     bug = None
     try:
         bug = QueueItem.objects.get(bugno=bugno)
-        print "Existing"
     except QueueItem.DoesNotExist:
         bug = QueueItem( bugno=bugno )
-        print "New"
     return bug
 
 def update_db(payload):
+    """ Update all the bugs from the database """
     for bug in payload['item']:
         metainf = bug['value']
         b = get_or_create_row(metainf['bug_num'])
@@ -52,10 +51,12 @@ def update_db(payload):
         b.save()
 
 def import_new_bugs():
+    """ Import new bugs """
     bugs = get_all_bugs()
     update_db(bugs)
 
 def refresh_db():
+    """ Refresh the bugs in the database """
     tickets = QueueItem.objects.filter(
         active=True
     ).order_by('bugno')
