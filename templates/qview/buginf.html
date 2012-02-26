@@ -1,5 +1,11 @@
 {% extends "qview/base.html" %}
 
+{% block style %}
+body {
+    background-image: url({{ STATIC_URL }}bg-{{ ticket.severity }}.png);
+}
+{% endblock %}
+
 {% block content %}
 <div class="hero-unit" >
     <h1>
