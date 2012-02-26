@@ -24,7 +24,7 @@
         <tbody>
     {% for ticket in tickets %}
             <tr>
-                <td><a href = 'http://bugs.debian.org/{{ ticket.bugno }}'
+                <td><a href = '{% url buginf ticket.bugno %}'
                         >{{ ticket.subject }}</a></td>
                 <td>{{ ticket.severity }}</td>
                 <td>{{ ticket.reporter }}</td>
