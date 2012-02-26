@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from pyqie.qview.models import QueueItem
+from pique.qview.models import QueueItem
 
 from collections import defaultdict
 

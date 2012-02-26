@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from pyqie.qview.models import QueueItem
+from pique.qview.models import QueueItem
 
 import SOAPpy
 import re
