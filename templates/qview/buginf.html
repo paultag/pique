@@ -20,5 +20,8 @@
     </p>
 </div>
 <div class = 'content-fluid' >
+    <div class = 'from-org-{{ from_org }}' >{{ ticket.reporter }}</div>
+    <br />
+    <a href = '{% url home %}' >back to the queue</a>
 </div>
 {% endblock %}
