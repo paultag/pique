@@ -2,6 +2,7 @@ from django.core.management.base import BaseCommand, CommandError
 from pyqie.qview.models import QueueItem
 
 import SOAPpy
+import re
 
 """
 Cron-job
@@ -49,6 +50,8 @@ package_name = "sponsorship-requests"
 
 def detag(subject, tags=[]):
     try:
+        subject = subject.replace("(", "[")
+        subject = subject.replace(")", "]")
         sb = subject.index("[")
         eb = subject.index("]")
         tag = subject[sb+1:eb]
@@ -62,7 +65,9 @@ def detag(subject, tags=[]):
 def yank_description(subject):
     subject = subject.replace(" - ", " -- ", 1)
     subject = subject.split(" -- ", 1)
-    return ( subject[0], subject[1] )
+    if len(subject) > 1:
+        return ( subject[0], subject[1] )
+    return ( "", subject[0] )
 
 def deprefix_subject(subject, pfxs=[]):
     try:
@@ -82,7 +87,7 @@ def break_pkgname(name):
         vers = name[nid+1:]
         return ( pkg, vers )
     except ValueError:
-        return ( name, None )
+        return ( name, "" )
 
 def process_subject(subject):
     subject, pfxs  = deprefix_subject(subject)
@@ -125,8 +130,8 @@ def get_or_create_row( bugno ):
 def update_db(payload):
     """ Update all the bugs from the database """
     for bug in payload['item']:
-        scraped_inf = process_subject( metainf['subject'] )
         metainf = bug['value']
+        scraped_inf = process_subject( metainf['subject'] )
 
         b = get_or_create_row(metainf['bug_num'])
         b.active   = (metainf['done'] == '')
