@@ -7,39 +7,10 @@ import re
 """
 Cron-job
 
-{
-    'fixed_versions': [],
-    'blockedby': '',
-    'owner': '',
-    'done': '',
-    'unarchived': '',
-    'keywords': '',
-    'id': 658834,
-    'subject': 'RFS: jabber-querybot -- Modular xmpp/jabber bot',
-    'archived': 0,
-    'forwarded': '',
-    'bug_num': 658834,
-    'msgid': '<20120206103322.31393.47245.reportbug@mbalmer.nine.ch>',
-    'source': '',
-    'location': 'db-h',
-    'pending': 'pending',
-    'found_date': [],
-    'originator': 'Marco Balmer <marco@balmer.name>',
-    'blocks': '',
-    'tags': '',
-    'last_modified': 1328534120,
-    'date': 1328524562,
-    'mergedwith': '',
-    'severity': 'normal',
-    'package': 'sponsorship-requests',
-    'summary': '',
-    'log_modified': 1328534120,
-    'fixed_date': [],
-    'found_versions': [],
-    'affects': '',
-    'found': '',
-    'fixed': ''
-}
+ToDo:
+    - usertags (?)
+    - tags
+    - parsed tags
 """
 
 url = 'http://bugs.debian.org/cgi-bin/soap.cgi'
@@ -134,6 +105,7 @@ def update_db(payload):
         scraped_inf = process_subject( metainf['subject'] )
 
         b = get_or_create_row(metainf['bug_num'])
+        # done got got
         b.active   = (metainf['done'] == '')
         b.reporter =  clean_email(metainf['originator'])
         b.owner    =  clean_email(metainf['owner'])
