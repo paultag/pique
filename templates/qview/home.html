@@ -1,16 +1,5 @@
 {% extends "qview/base.html" %}
 
-{% block style %}
-.hero-unit {
-    background-image:     url({{ STATIC_URL }}debian-python.png);
-    background-repeat:    no-repeat;
-    background-position:  top right;
-}
-footer {
-    margin-bottom:        20px;
-}
-{% endblock %}
-
 {% block content %}
 <div class="hero-unit" >
     <h1>Sponsorship Queue</h1>
@@ -44,8 +33,5 @@ footer {
         </tbody>
     {% endfor %}
     </table>
-    <footer>
-        Maintained by Paul Tagliamonte &lt;paultag@ubuntu.com&gt;
-    </footer>
 </div>
 {% endblock %}

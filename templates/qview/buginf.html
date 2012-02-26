@@ -1,0 +1,13 @@
+{% extends "qview/base.html" %}
+
+{% block content %}
+<div class="hero-unit" >
+    <h1>ticket #{{ ticket.bugno }} <small>({{ ticket.severity }})</small></h1>
+    <br />
+    <p>
+        {{ ticket.subject }}
+    </p>
+</div>
+<div class = 'content-fluid' >
+</div>
+{% endblock %}

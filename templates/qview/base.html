@@ -7,6 +7,14 @@
             href="http://twitter.github.com/bootstrap/1.4.0/bootstrap.min.css"
         ></link>
         <style>
+.hero-unit {
+    background-image:     url({{ STATIC_URL }}debian-python.png);
+    background-repeat:    no-repeat;
+    background-position:  top right;
+}
+footer {
+    margin-bottom:        20px;
+}
 {% block style %}
 {% endblock %}
         </style>
@@ -15,6 +23,9 @@
         <div class = 'container' >
 {% block content %}
 {% endblock %}
+            <footer>
+                Maintained by Paul Tagliamonte &lt;paultag@ubuntu.com&gt;
+            </footer>
         </div>
     </body>
 </html>
