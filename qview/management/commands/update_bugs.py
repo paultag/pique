@@ -90,8 +90,8 @@ def break_pkgname(name):
         return ( name, "" )
 
 def process_subject(subject):
-    subject, pfxs  = deprefix_subject(subject)
     subject, tags  = detag(subject)
+    subject, pfxs  = deprefix_subject(subject)
     package, descr = yank_description(subject)
     pkg,     vers  = break_pkgname(package)
     return {
