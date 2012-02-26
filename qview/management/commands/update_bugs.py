@@ -47,6 +47,55 @@ server = SOAPpy.SOAPProxy(url, namespace)
 
 package_name = "sponsorship-requests"
 
+def detag(subject, tags=[]):
+    try:
+        sb = subject.index("[")
+        eb = subject.index("]")
+        tag = subject[sb+1:eb]
+        nsub = subject[:sb] + subject[eb+1:]
+        tags.append(tag)
+        return detag(nsub, tags)
+    except ValueError:
+        subject = re.sub(r'\s+', ' ', subject)
+        return ( subject, tags )
+
+def yank_description(subject):
+    subject = subject.replace(" - ", " -- ", 1)
+    subject = subject.split(" -- ", 1)
+    return ( subject[0], subject[1] )
+
+def deprefix_subject(subject, pfxs=[]):
+    try:
+        ep = subject.index(":")
+        if ep > 5:
+            raise ValueError("Frack")
+        pfxs.append( subject[:ep] )
+        subject = subject[ep+1:].strip()
+        return deprefix_subject(subject, pfxs)
+    except ValueError:
+        return subject, pfxs
+
+def break_pkgname(name):
+    try:
+        nid = name.index("/")
+        pkg  = name[:nid]
+        vers = name[nid+1:]
+        return ( pkg, vers )
+    except ValueError:
+        return ( name, None )
+
+def process_subject(subject):
+    subject, pfxs  = deprefix_subject(subject)
+    subject, tags  = detag(subject)
+    package, descr = yank_description(subject)
+    pkg,     vers  = break_pkgname(package)
+    return {
+        "package" : pkg,
+        "version" : vers,
+        "descr"   : descr,
+        "tags"    : ( pfxs + tags )
+    }
+
 def get_info_on_bugs(bugs):
     """ Get all the active bugs we care about """
     return server.get_status(bugs)
@@ -76,14 +125,19 @@ def get_or_create_row( bugno ):
 def update_db(payload):
     """ Update all the bugs from the database """
     for bug in payload['item']:
+        scraped_inf = process_subject( metainf['subject'] )
         metainf = bug['value']
-        print metainf
+
         b = get_or_create_row(metainf['bug_num'])
         b.active   = (metainf['done'] == '')
         b.reporter =  clean_email(metainf['originator'])
         b.owner    =  clean_email(metainf['owner'])
         b.subject  =  metainf['subject']
         b.severity =  metainf['severity']
+        # scraped info
+        b.package  = scraped_inf['package']
+        b.descr    = scraped_inf['descr']
+        b.version  = scraped_inf['version']
         b.save()
 
 def import_new_bugs():

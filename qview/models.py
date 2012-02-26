@@ -20,3 +20,8 @@ class QueueItem(models.Model):
     subject  = models.CharField(max_length=160)
     msgid    = models.CharField(max_length=256)
     severity = models.CharField(max_length=2, choices=SEVERITIES)
+    # scraped info
+    package  = models.CharField(max_length=80)
+    descr    = models.CharField(max_length=80)
+    version  = models.CharField(max_length=80)
+    # XXX: ToDo: Tags
