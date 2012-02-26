@@ -20,7 +20,26 @@
     </p>
 </div>
 <div class = 'content-fluid' >
-    <div class = 'from-org-{{ from_org }}' >{{ ticket.reporter }}</div>
+    <dl>
+        <dt>Requester</dt>
+        <dd>
+            <div class = 'from-org-{{ from_org }}' >{{ ticket.reporter }}</div>
+        </dd>
+        <dt>Owner</dt>
+        <dd>
+            {% if ticket.owner %}
+                {{ ticket.owner }}
+            {% else %}
+                No owner
+            {% endif %}
+        </dd>
+        <dt>Description</dt>
+        <dd>{{ ticket.descr }}</dd>
+        <dt>Package</dt>
+        <dd>{{ ticket.package }}</dd>
+        <dt>Version</dt>
+        <dd>{{ ticket.version }}</dd>
+    </dl>
     <br />
     <a href = '{% url home %}' >back to the queue</a>
 </div>
