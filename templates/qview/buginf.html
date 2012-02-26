@@ -2,21 +2,23 @@
 
 {% block content %}
 <div class="hero-unit" >
-    <h1>ticket #{{ ticket.bugno }} <small>({{ ticket.severity }})</small></h1>
+    <h1>
+        {% if ticket.package %}
+            {{ ticket.package }}
+        {% else %}
+            Ticket #{{ ticket.bugno }}
+        {% endif %}
+        <small>({{ ticket.severity }})</small>
+    </h1>
     <br />
     <p>
-        {{ ticket.subject }}
+        {% if ticket.descr %}
+            {{ ticket.descr }}
+        {% else %}
+            {{ ticket.subject }}
+        {% endif %}
     </p>
 </div>
 <div class = 'content-fluid' >
-    <a href = '{% url home %}' >back to queue</a><br />
-    <br />
-    <h3>ticket information</h3>
-    <b>buglink:</b> <a href = 'http://bugs.debian.org/{{ ticket.bugno }}'
-        >{{ ticket.subject }}</a>
-    <h3>guessed information</h3>
-    <b>package:</b> {{ ticket.package }}<br />
-    <b>version:</b> {{ ticket.version }}<br />
-    <b>descrip:</b> {{ ticket.descr }}<br />
 </div>
 {% endblock %}
