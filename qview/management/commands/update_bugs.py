@@ -3,6 +3,7 @@ from pique.qview.models import QueueItem
 
 import SOAPpy
 import re
+import os.path
 
 """
 Cron-job
@@ -18,6 +19,23 @@ namespace = 'Debbugs/SOAP'
 server = SOAPpy.SOAPProxy(url, namespace)
 
 package_name = "sponsorship-requests"
+
+vcs_root = "/var/lib/pique"
+
+def exists(path):
+    return os.path.exists(path)
+
+def is_pymodule(package):
+    path = "%s/python-modules/%s" % (
+        vcs_root, package
+    )
+    return exists(path)
+
+def is_pyapp(package):
+    path = "%s/python-apps/%s" % (
+        vcs_root, package
+    )
+    return exists(path)
 
 def detag(subject, tags=[]):
     try:
