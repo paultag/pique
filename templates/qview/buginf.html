@@ -46,8 +46,6 @@ body {
         <dt>Version</dt>
         <dd>{{ ticket.version }}</dd>
     </dl>
-    <br />
-    <pre>svn co svn+ssh://svn.debian.org/svn/python-modules/packages/{{ ticket.package }}/trunk {{ ticket.package }}</pre>
     <a href = '{% url home %}' >back to the queue</a>
 </div>
 {% endblock %}
