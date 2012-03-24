@@ -26,6 +26,9 @@ body {
     </p>
 </div>
 <div class = 'content-fluid' >
+    {% for tag in tags %}
+        <span class="badge badge-info">{{ tag.name }}</span>
+    {% endfor %}
     <dl>
         <dt>Requester</dt>
         <dd>

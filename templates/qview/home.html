@@ -15,7 +15,7 @@
         <thead>
             <tr>
                 <th>Request Subject</th>
-                <th>Tags</th>
+                <!-- <th>Tags</th> -->
                 <th>Severity</th>
                 <th>Requestor</th>
                 <th>Owner (reviewer)</th>
@@ -26,11 +26,11 @@
             <tr>
                 <td><a href = '{% url buginf ticket.bugno %}'
                         >{{ ticket.subject }}</a></td>
-                <td>
+                <!--<td>
                     {% for tag in ticket.get_tags %}
                         <span class="badge badge-info">{{ tag.name }}</span>
                     {% endfor %}
-                </td>
+                </td>-->
                 <td>{{ ticket.severity }}</td>
                 <td>{{ ticket.reporter }}</td>
                 <td>{{ ticket.owner }}</td>
