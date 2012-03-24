@@ -17,5 +17,5 @@ class QueueItem(models.Model):
     version  = models.CharField(max_length=80)
 
 class Tag(models.Model):
-    name = models.CharField(max_length=80)
-    queue_item = QueueItem()
+    name     = models.CharField(max_length=80)
+    bugno    = models.IntegerField()

@@ -22,7 +22,9 @@ package_name = "sponsorship-requests"
 def exists(path):
     return os.path.exists(path)
 
-def detag(subject, tags=[]):
+def detag(subject, tags=None):
+    if not tags:
+        tags = []
     try:
         subject = subject.replace("(", "[")
         subject = subject.replace(")", "]")
@@ -43,7 +45,9 @@ def yank_description(subject):
         return ( subject[0], subject[1] )
     return ( "", subject[0] )
 
-def deprefix_subject(subject, pfxs=[]):
+def deprefix_subject(subject, pfxs=None):
+    if not pfxs:
+        pfxs = []
     try:
         ep = subject.index(":")
         if ep > 5:
@@ -92,13 +96,19 @@ def clean_email(email):
     except ValueError:
         return email
 
-def get_or_create_tag( qi, name ):
+def get_or_create_tag( bugno, name ):
     """ Either get the record in the DB, or add a new record """
     tag = None
     try:
-        tag = Tag.objects.get(queue_item=qi, name=name)
+        tag = Tag.objects.get(bugno=bugno, name=name)
+        print "Got existing tag %s, %s" % (
+            tag.bugno, tag.name
+        )
     except Tag.DoesNotExist:
         tag = Tag( bugno=bugno, name=name )
+        print "New tag %s, %s" % (
+            tag.bugno, tag.name
+        )
     return tag
 
 def get_or_create_row( bugno ):
@@ -106,8 +116,10 @@ def get_or_create_row( bugno ):
     bug = None
     try:
         bug = QueueItem.objects.get(bugno=bugno)
+        print "Got existing ticket"
     except QueueItem.DoesNotExist:
         bug = QueueItem( bugno=bugno )
+        print "New ticket"
     return bug
 
 def update_db(payload):
@@ -129,7 +141,7 @@ def update_db(payload):
         b.version  = scraped_inf['version']
 
         for tag in scraped_inf['tags']:
-            tag = get_or_create_tag( b, tag )
+            tag = get_or_create_tag( b.bugno, tag )
             tag.save()
 
         b.save()
