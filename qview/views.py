@@ -9,7 +9,7 @@ def home(request):
     ).order_by('bugno')
 
     return render( request, "qview/home.html", {
-        "tickets" : tickets
+        "tickets" : tickets,
     })
 
 def buginf(request, buginf=None):
