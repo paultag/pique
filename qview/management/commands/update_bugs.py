@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from pique.qview.models import QueueItem
+from pique.qview.models import QueueItem, Tag
 
 import SOAPpy
 import re
@@ -10,7 +10,6 @@ Cron-job
 
 ToDo:
     - usertags (?)
-    - tags
     - parsed tags
 """
 
@@ -20,22 +19,8 @@ server = SOAPpy.SOAPProxy(url, namespace)
 
 package_name = "sponsorship-requests"
 
-vcs_root = "/var/lib/pique"
-
 def exists(path):
     return os.path.exists(path)
-
-def is_pymodule(package):
-    path = "%s/python-modules/%s" % (
-        vcs_root, package
-    )
-    return exists(path)
-
-def is_pyapp(package):
-    path = "%s/python-apps/%s" % (
-        vcs_root, package
-    )
-    return exists(path)
 
 def detag(subject, tags=[]):
     try:
@@ -107,6 +92,15 @@ def clean_email(email):
     except ValueError:
         return email
 
+def get_or_create_tag( qi, name ):
+    """ Either get the record in the DB, or add a new record """
+    tag = None
+    try:
+        tag = Tag.objects.get(queue_item=qi, name=name)
+    except Tag.DoesNotExist:
+        tag = Tag( bugno=bugno, name=name )
+    return tag
+
 def get_or_create_row( bugno ):
     """ Either get the record in the DB, or add a new record """
     bug = None
@@ -133,6 +127,11 @@ def update_db(payload):
         b.package  = scraped_inf['package']
         b.descr    = scraped_inf['descr']
         b.version  = scraped_inf['version']
+
+        for tag in scraped_inf['tags']:
+            tag = get_or_create_tag( b, tag )
+            tag.save()
+
         b.save()
 
 def import_new_bugs():
