@@ -101,14 +101,14 @@ def get_or_create_tag( bugno, name ):
     tag = None
     try:
         tag = Tag.objects.get(bugno=bugno, name=name)
-        print "Got existing tag %s, %s" % (
-            tag.bugno, tag.name
-        )
+        #print "Got existing tag %s, %s" % (
+        #    tag.bugno, tag.name
+        #)
     except Tag.DoesNotExist:
         tag = Tag( bugno=bugno, name=name )
-        print "New tag %s, %s" % (
-            tag.bugno, tag.name
-        )
+        #print "New tag %s, %s" % (
+        #    tag.bugno, tag.name
+        #)
     return tag
 
 def get_or_create_row( bugno ):
@@ -116,10 +116,10 @@ def get_or_create_row( bugno ):
     bug = None
     try:
         bug = QueueItem.objects.get(bugno=bugno)
-        print "Got existing ticket"
+        #print "Got existing ticket"
     except QueueItem.DoesNotExist:
         bug = QueueItem( bugno=bugno )
-        print "New ticket"
+        #print "New ticket"
     return bug
 
 def update_db(payload):
