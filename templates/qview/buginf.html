@@ -32,7 +32,9 @@ body {
     <dl>
         <dt>Requester</dt>
         <dd>
-            <div class = 'from-org-{{ from_org }}' >{{ ticket.reporter }}</div>
+        <div class = 'from-org-{{ from_org }}' >
+            <a href = 'http://qa.debian.org/developer.php?login={{ ticket.reporter }}' >{{ ticket.reporter }}</a>
+        </div>
         </dd>
         <dt>Owner</dt>
         <dd>
@@ -45,7 +47,7 @@ body {
         <dt>Description</dt>
         <dd>{{ ticket.descr }}</dd>
         <dt>Package</dt>
-        <dd>{{ ticket.package }}</dd>
+        <dd><a href = 'http://packages.qa.debian.org/{{ ticket.package }}' >{{ ticket.package }}</a></dd>
         <dt>Version</dt>
         <dd>{{ ticket.version }}</dd>
     </dl>
