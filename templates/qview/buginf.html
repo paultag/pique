@@ -26,6 +26,8 @@ body {
     </p>
 </div>
 <div class = 'content-fluid' >
+    <a href = 'http://bugs.debian.org/{{ ticket.bugno }}' >BTS Link</a><br />
+    <br />
     {% for tag in tags %}
         <span class="badge badge-info">{{ tag.name }}</span>
     {% endfor %}
@@ -51,6 +53,7 @@ body {
         <dt>Version</dt>
         <dd>{{ ticket.version }}</dd>
     </dl>
+    <br />
     <a href = '{% url home %}' >back to the queue</a>
 </div>
 {% endblock %}
