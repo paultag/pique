@@ -39,15 +39,15 @@ body {
         <dt>Requester</dt>
         <dd>
         <div class = 'from-org-{{ from_org }}' >
+            <img class = 'cute' src = 'http://www.gravatar.com/avatar/{{ rhash }}' /><br />
             <a href = 'http://qa.debian.org/developer.php?login={{ ticket.reporter }}' >{{ ticket.reporter }}</a>
-                <img class = 'cute' src = 'http://www.gravatar.com/avatar/{{ rhash }}' />
         </div>
         </dd>
         <dt>Owner</dt>
         <dd>
             {% if ticket.owner %}
+                <img class = 'cute' src = 'http://www.gravatar.com/avatar/{{ ohash }}' /><br />
                 {{ ticket.owner }}
-                <img class = 'cute' src = 'http://www.gravatar.com/avatar/{{ ohash }}' />
             {% else %}
                 No owner
             {% endif %}
