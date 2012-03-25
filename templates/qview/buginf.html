@@ -4,6 +4,10 @@
 body {
     background-image: url({{ STATIC_URL }}bg-{{ ticket.severity }}.png);
 }
+.cute {
+    -webkit-border-radius:  5px;
+    -moz-border-radius:     5px;
+}
 {% endblock %}
 
 {% block content %}
@@ -36,14 +40,14 @@ body {
         <dd>
         <div class = 'from-org-{{ from_org }}' >
             <a href = 'http://qa.debian.org/developer.php?login={{ ticket.reporter }}' >{{ ticket.reporter }}</a>
-                <img src = 'http://www.gravatar.com/avatar/{{ rhash }}' />
+                <img class = 'cute' src = 'http://www.gravatar.com/avatar/{{ rhash }}' />
         </div>
         </dd>
         <dt>Owner</dt>
         <dd>
             {% if ticket.owner %}
                 {{ ticket.owner }}
-                <img src = 'http://www.gravatar.com/avatar/{{ ohash }}' />
+                <img class = 'cute' src = 'http://www.gravatar.com/avatar/{{ ohash }}' />
             {% else %}
                 No owner
             {% endif %}
