@@ -28,12 +28,33 @@ body {
                   {{ ticket.subject }}
               {% endif %}
             </p>
+            <p><a href = '{% url home %}' >Back to the Queue</a></p>
             <p>
                 {% for tag in tags %}
                     <span class="badge badge-info">{{ tag.name }}</span>
                 {% endfor %}
             </p>
           </div>
+          {% if ticket.severity != 'wishlist' %}
+            {% if 'ITP' in strtags or 'NEW' in strtags %}
+                <div class="alert alert-error">
+                    <b>Warning</b>, this package is NEW, but severity is
+                    not wishlist. This is not good. Please send the folowing
+                    lines to the control daemon:<br /><br />
+<pre>severity {{ ticket.bugno }} wishlist
+# NEW packages should be wishlist.
+thanks</pre>
+                </div>
+            {% endif %}
+          {% endif %}
+          {% if 'put in ITP, ITA, RC, NMU if applicable' in strtags %}
+                <div class="alert alert-error">
+                    <b>Warning</b>, this package has the tag
+                    "put in ITP, ITA, RC, NMU if applicable", which means the
+                    uploader didn't read the template. Be extra careful that
+                    they're not so careless with their debian directory.
+                </div>
+          {% endif %}
           {% if ticket.owner %}
               <div class="alert alert-info">
                   This package is currently owned by <b>{{ ticket.owner }}</b>
