@@ -31,6 +31,7 @@ def buginf(request, buginf=None):
         "ticket"   : ticket,
         "from_org" : from_org,
         "tags"     : tags,
+        "strtags"  : [ tag.name for tag in tags ],
         "rhash"    : reporter
     }
 

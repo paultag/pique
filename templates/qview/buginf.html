@@ -28,17 +28,47 @@ body {
                   {{ ticket.subject }}
               {% endif %}
             </p>
+            <p>
+                {% for tag in tags %}
+                    <span class="badge badge-info">{{ tag.name }}</span>
+                {% endfor %}
+            </p>
           </div>
+          {% if ticket.owner %}
+              <div class="alert alert-info">
+                  This package is currently owned by <b>{{ ticket.owner }}</b>
+              </div>
+          {% endif %}
+          {% if 'NEW' in strtags or 'ITP' in strtags %}
+              <div class="alert alert-info">
+                  This package looks to be <b>new</b>. Please double-check
+                  license issues, and ensure the code doen't have nested
+                  copies. Make sure it closes the right ITP, too.
+              </div>
+          {% endif %}
+          {% if 'RC' in strtags %}
+              <div class="alert alert-error">
+                  This upload is <b>Release Critical</b>. Please tend to this
+                  as quickly as is feasible.
+              </div>
+          {% endif %}
+          {% if ticket.severity == 'important' %}
+              <div class="alert alert-warning">
+                  This package is <b>important</b>. Please pay special attention
+                  to the timeframe regarding this package's upload.
+              </div>
+          {% endif %}
         <div class="row-fluid">
             <div class="span3 well">
-              <h2>Package Information</h2>
+              <h2>RFS Info</h2>
               <p>
                 {% if ticket.package %}
                     There's a good deal of info on the
                     <a href = 'http://packages.qa.debian.org/{{ ticket.package }}' >PTS</a>,
-
+                    as well as the original ticket on the
+                    <a href = 'http://bugs.debian.org/{{ ticket.bugno }}' >BTS</a>.
                 {% else %}
-                  Sorry, the subject line was mightly malformated. Resolving the
+                 Sorry, the subject line was mightly malformated. Resolving the
                   package name is a bit hacky, so sorry about that.
                 {% endif %}
               </p>
@@ -56,7 +86,7 @@ body {
               </p>
             </div>
             <div class="span3 well">
-              <h2>Reviewer Information</h2>
+              <h2>Reviewer Info</h2>
               <p>
               {% if ticket.owner %}
                 <img src = 'http://www.gravatar.com/avatar/{{ ohash }}?s=50' alt = '' style = 'float:left;margin:10px;' >
