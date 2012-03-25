@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from pique.qview.models import QueueItem, Tag
 
+import hashlib
 from collections import defaultdict
 
 def home(request):
@@ -13,6 +14,9 @@ def home(request):
     })
 
 def buginf(request, buginf=None):
+    def hashmail(email):
+        return hashlib.md5(email).hexdigest()
+
     ticket = QueueItem.objects.get(
         bugno=buginf
     )
@@ -20,8 +24,18 @@ def buginf(request, buginf=None):
         bugno=buginf
     )
     from_org = ticket.reporter.split("@", 1)[1].replace(".", "_")
-    return render( request, "qview/buginf.html", {
+
+    reporter = hashmail(ticket.reporter)
+
+    context = {
         "ticket"   : ticket,
         "from_org" : from_org,
-        "tags"     : tags
-    })
+        "tags"     : tags,
+        "rhash"    : reporter
+    }
+
+    if ticket.owner:
+        owner = hashmail(ticket.owner)
+        context['ohash'] = owner
+
+    return render( request, "qview/buginf.html", context )

@@ -36,12 +36,14 @@ body {
         <dd>
         <div class = 'from-org-{{ from_org }}' >
             <a href = 'http://qa.debian.org/developer.php?login={{ ticket.reporter }}' >{{ ticket.reporter }}</a>
+                <img src = 'http://www.gravatar.com/avatar/{{ rhash }}' />
         </div>
         </dd>
         <dt>Owner</dt>
         <dd>
             {% if ticket.owner %}
                 {{ ticket.owner }}
+                <img src = 'http://www.gravatar.com/avatar/{{ ohash }}' />
             {% else %}
                 No owner
             {% endif %}
