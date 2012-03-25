@@ -30,21 +30,23 @@ body {
             </p>
           </div>
         <div class="row-fluid">
-            <div class="span4">
+            <div class="span3 well">
               <h2>Package Information</h2>
               <p>
                 {% if ticket.package %}
-                  <a href = 'http://packages.qa.debian.org/{{ ticket.package }}' >PTS</a>
+                    There's a good deal of info on the
+                    <a href = 'http://packages.qa.debian.org/{{ ticket.package }}' >PTS</a>,
+
                 {% else %}
                   Sorry, the subject line was mightly malformated. Resolving the
                   package name is a bit hacky, so sorry about that.
                 {% endif %}
               </p>
             </div>
-            <div class="span4">
+            <div class="span4 well">
               <h2>Reporter Information</h2>
               <p>
-              <img src = 'http://www.gravatar.com/avatar/{{ rhash }}?s=100' alt = '' style = 'float:left;margin:10px;' >
+              <img src = 'http://www.gravatar.com/avatar/{{ rhash }}?s=50' alt = '' style = 'float:left;margin:10px;' >
               This RFS was filed by <a href = 'http://qa.debian.org/developer.php?login={{ ticket.reporter }}' >{{ ticket.reporter }}</a>.
               You might also be interested in their
               <a href = 'http://lintian.debian.org/full/{{ ticket.reporter }}.html' >lintian report</a>,
@@ -53,11 +55,11 @@ body {
               and <a href = 'http://bugs.debian.org/from:{{ ticket.reporter }}' >bugs they've filed</a>.
               </p>
             </div>
-            <div class="span4">
+            <div class="span3 well">
               <h2>Reviewer Information</h2>
               <p>
               {% if ticket.owner %}
-                <img src = 'http://www.gravatar.com/avatar/{{ ohash }}?s=100' alt = '' style = 'float:left;margin:10px;' >
+                <img src = 'http://www.gravatar.com/avatar/{{ ohash }}?s=50' alt = '' style = 'float:left;margin:10px;' >
                 This RFS is owned by <b>{{ ticket.owner }}</b>
               {% else %}
                 This RFS is not owned by anyone. If you would like to take ownership
