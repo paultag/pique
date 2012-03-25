@@ -11,55 +11,63 @@ body {
 {% endblock %}
 
 {% block content %}
-<div class="hero-unit" >
-    <h1>
-        {% if ticket.package %}
-            {{ ticket.package }}
-        {% else %}
-            Ticket #{{ ticket.bugno }}
-        {% endif %}
-        <small>({{ ticket.severity }})</small>
-    </h1>
-    <br />
-    <p>
-        {% if ticket.descr %}
-            {{ ticket.descr }}
-        {% else %}
-            {{ ticket.subject }}
-        {% endif %}
-    </p>
-</div>
-<div class = 'content-fluid' >
-    <a href = 'http://bugs.debian.org/{{ ticket.bugno }}' >BTS Link</a><br />
-    <br />
-    {% for tag in tags %}
-        <span class="badge badge-info">{{ tag.name }}</span>
-    {% endfor %}
-    <dl>
-        <dt>Requester</dt>
-        <dd>
-        <div class = 'from-org-{{ from_org }}' >
-            <img class = 'cute' src = 'http://www.gravatar.com/avatar/{{ rhash }}' /><br />
-            <a href = 'http://qa.debian.org/developer.php?login={{ ticket.reporter }}' >{{ ticket.reporter }}</a>
-        </div>
-        </dd>
-        <dt>Owner</dt>
-        <dd>
-            {% if ticket.owner %}
-                <img class = 'cute' src = 'http://www.gravatar.com/avatar/{{ ohash }}' /><br />
-                {{ ticket.owner }}
-            {% else %}
-                No owner
-            {% endif %}
-        </dd>
-        <dt>Description</dt>
-        <dd>{{ ticket.descr }}</dd>
-        <dt>Package</dt>
-        <dd><a href = 'http://packages.qa.debian.org/{{ ticket.package }}' >{{ ticket.package }}</a></dd>
-        <dt>Version</dt>
-        <dd>{{ ticket.version }}</dd>
-    </dl>
-    <br />
-    <a href = '{% url home %}' >back to the queue</a>
-</div>
+          <div class="hero-unit" >
+            <h1>
+              {% if ticket.package %}
+                  {{ ticket.package }}
+              {% else %}
+                  Ticket #{{ ticket.bugno }}
+              {% endif %}
+              <small>({{ ticket.severity }})</small>
+            </h1>
+            <br />
+            <p>
+              {% if ticket.descr %}
+                  {{ ticket.descr }}
+              {% else %}
+                  {{ ticket.subject }}
+              {% endif %}
+            </p>
+          </div>
+        <div class="row-fluid">
+            <div class="span4">
+              <h2>Package Information</h2>
+              <p>
+                {% if ticket.package %}
+                  <a href = 'http://packages.qa.debian.org/{{ ticket.package }}' >PTS</a>
+                {% else %}
+                  Sorry, the subject line was mightly malformated. Resolving the
+                  package name is a bit hacky, so sorry about that.
+                {% endif %}
+              </p>
+            </div>
+            <div class="span4">
+              <h2>Reporter Information</h2>
+              <p>
+              <img src = 'http://www.gravatar.com/avatar/{{ rhash }}?s=100' alt = '' style = 'float:left;margin:10px;' >
+              This RFS was filed by <a href = 'http://qa.debian.org/developer.php?login={{ ticket.reporter }}' >{{ ticket.reporter }}</a>.
+              You might also be interested in their
+              <a href = 'http://lintian.debian.org/full/{{ ticket.reporter }}.html' >lintian report</a>,
+              <a href = 'http://qa.debian.org/wnpp.php?login={{ ticket.reporter }}' >WNPP bugs</a>,
+              <a href = 'http://bugs.debian.org/{{ ticket.reporter }}' >bugs they've recieved</a>
+              and <a href = 'http://bugs.debian.org/from:{{ ticket.reporter }}' >bugs they've filed</a>.
+              </p>
+            </div>
+            <div class="span4">
+              <h2>Reviewer Information</h2>
+              <p>
+              {% if ticket.owner %}
+                <img src = 'http://www.gravatar.com/avatar/{{ ohash }}?s=100' alt = '' style = 'float:left;margin:10px;' >
+                This RFS is owned by <b>{{ ticket.owner }}</b>
+              {% else %}
+                This RFS is not owned by anyone. If you would like to take ownership
+                of this bug (meaning you're a DD who's interested in sponsoring
+                this package), send the following
+                to control@bugs.debian:
+<pre>owner {{ ticket.bugno }} !
+thanks</pre>
+              {% endif %}
+              </p>
+            </div>
+          </div>
 {% endblock %}

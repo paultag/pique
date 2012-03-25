@@ -18,31 +18,17 @@ footer {
     font-size:            0.8em;
 }
 
-/* fromorgs */
-
-.from-org-ubuntu_com {
-    background-image:  url(http://www.ubuntu.com/sites/all/themes/ubuntu10/favicon.ico);
-    background-repeat: no-repeat;
-    padding-left:      20px;
-}
-
-.from-org-member_fsf_org {
-    background-image:  url(http://static.fsf.org/fsforg/img/favicon.ico);
-    background-repeat: no-repeat;
-    padding-left:      20px;
-}
-
 {% block style %}
 {% endblock %}
         </style>
     </head>
     <body>
-        <div class = 'container' >
+      <div class = 'container' >
 {% block content %}
 {% endblock %}
-            <footer>
-                Maintained by Paul Tagliamonte &lt;paultag@ubuntu.com&gt;
-            </footer>
-        </div>
+        <footer>
+            Maintained by Paul Tagliamonte &lt;paultag@ubuntu.com&gt;
+        </footer>
+      </div>
     </body>
 </html>
