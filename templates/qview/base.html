@@ -17,7 +17,9 @@ footer {
     color:                #DCDCDC;
     font-size:            0.8em;
 }
-
+.license {
+    margin:               5px;
+}
 {% block style %}
 {% endblock %}
         </style>
@@ -26,6 +28,12 @@ footer {
       <div class = 'container' >
 {% block content %}
 {% endblock %}
+        <div class = 'license' >
+            The source to this app is browsable at
+            <a href = 'https://github.com/paultag/pique' >paultag/pique</a> on
+            GitHub, and cloneable with<br />
+            <code>git clone git://github.com/paultag/pique.git</code>
+        </div>
         <footer>
             Maintained by Paul Tagliamonte &lt;paultag@ubuntu.com&gt;
         </footer>
